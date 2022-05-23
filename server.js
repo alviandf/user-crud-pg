@@ -1,14 +1,12 @@
-const express = require("express");
+import express from 'express';
 const app = express();
 
-// Parse requests of content-type - application/json
 app.use(express.json());
-// Parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({
     extended: true
 }));
 
-const db = require("./app/models");
+import db from "./app/models/index.js";
 db.sequelize.sync();
 
 // Simple route
@@ -18,7 +16,8 @@ app.get("/", (req, res) => {
     });
 });
 
-require("./app/routes/user.routes.js")(app);
+import userRoutes from "./app/routes/user.routes.js";
+userRoutes(app);
 
 // Set port, listen for requests
 const PORT = process.env.PORT || 8080;

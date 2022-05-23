@@ -1,8 +1,8 @@
-const db = require("../models");
+import db from "../models/index.js";
 const User = db.user;
 const Op = db.Sequelize.Op;
 
-exports.login = (req, res) => {
+export const login = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     User.findOne({
@@ -28,7 +28,7 @@ exports.login = (req, res) => {
 }
 
 // Register a new User
-exports.register = (req, res) => {
+export const register = (req, res) => {
     // Validate request
     if (!req.body.email || !req.body.password || !req.body.name) {
         res.status(400).send({
@@ -57,7 +57,7 @@ exports.register = (req, res) => {
 };
 
 // Retrieve all User from the database.
-exports.findAll = (req, res) => {
+export const findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? {
         title: {
@@ -78,7 +78,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single User with an id
-exports.findOne = (req, res) => {
+export const findOne = (req, res) => {
     const id = req.params.id;
     User.findByPk(id)
         .then(data => {
@@ -98,7 +98,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update by the id in the request
-exports.update = (req, res) => {
+export const update = (req, res) => {
     const id = req.params.id;
     User.update(req.body, {
             where: {
@@ -124,7 +124,7 @@ exports.update = (req, res) => {
 };
 
 // Delete with the specified id in the request
-exports.delete = (req, res) => {
+export const deleteById = (req, res) => {
     const id = req.params.id;
     User.destroy({
             where: {
@@ -150,7 +150,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all data from the database.
-exports.deleteAll = (req, res) => {
+export const deleteAll = (req, res) => {
     User.destroy({
             where: {},
             truncate: false
