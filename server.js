@@ -6,7 +6,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-import db from "./app/models/index.js";
+import db from "./database/models/index.js";
 db.sequelize.sync();
 
 // Simple route
